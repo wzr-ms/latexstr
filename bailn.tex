@@ -1,0 +1,220 @@
+
+\documentclass[12pt,a4paper]{article}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.0cm,bottom=2.5cm}
+\usepackage[english]{babel}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{amsfonts}
+\usepackage[longend,ruled,linesnumbered]{algorithm2e}
+\usepackage{fancyhdr}
+\usepackage[fontset=windows]{ctex}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+
+\begin{document}
+
+
+\title{
+{\heiti《高等运筹学》第 {$2$} 次作业
+\footnote{
+ 缺货率处理为线性，因此在约束条件为线性的情况下才能求解。在单周期问题中，未查到缺货率相关概念。
+}
+}
+}
+\date{}
+
+\author{
+姓名：\underline{王章任}~~~~~~
+学号：\underline{2024201050128}~~~~~~}
+
+\maketitle
+
+\noindent
+\section*{\heiti \color{red}{报童模型拓展}}
+\noindent
+{\bf 题目1：}假设报童模型中需求量的概率分布为$F(x)$，成本参数为$c$和$p$，订货量受到限制$(Q\leq K)$,试分析在需求量的概率分布为$F(x)$的情况下，最优订货量$Q^*$的计算方法。
+
+
+
+\vspace{5pt}
+\noindent
+{\bf 解：}
+\begin{align}
+    \max_Q\text{\ }\pi \left( Q^{*} \right) &=\left( P-S \right) \left( \int_0^Q{xf\left( x \right) dx+\int_Q^{\infty}{Qf\left( x \right) dx}} \right) -\left( W-S \right) Q \\
+    s.t.&\ Q\le K
+\end{align}
+
+
+由于约束条件为线性的，则判断其目标函数$\pi $为经典的报童模型的求解最大收益的函数，则可以判断其一节可导，因此可以使用拉格朗日乘子法求解其最优解，采用KKT条件求解其最优解，即：\\
+拉格朗日乘子式：
+
+\begin{equation}
+    L\left( Q,\lambda  \right) =\pi \left( Q \right) +\lambda \left( K-Q \right)
+\end{equation}
+
+对其$Q$求导，得到：
+\begin{equation}
+    \frac{\partial L\left( Q,\lambda  \right)}{\partial Q} =\left( P-S \right) F\left( Q\right) -\left( W-S \right) -\lambda =0
+\end{equation}
+
+当$\lambda >0$时，有：
+\begin{equation}
+    \lambda \left( K-Q \right) =0   
+\end{equation}
+联立式(4)和式(5)可得：
+\begin{equation}
+    \left( P-S \right) F\left( K\right) -\left( W-S \right) =\lambda              
+\end{equation}
+对其进行验证原问题与$\lambda$是否满足条件，可以得到：原问题满足条件且$\lambda$>0。
+
+当$\lambda$=0时，有：
+\begin{equation}
+    Q<K
+\end{equation}
+联立式(4)和式(7)可得：
+\begin{equation}
+    F\left(Q\right)=\frac{S-W}{S-P} >0
+\end{equation}
+
+对其进行验证原问题与$\lambda$是否满足条件，可以得到：原问题满足条件且$\lambda$=0。
+
+综上所述，可以得到最优解$Q^*$的计算方法为：
+\begin{equation}
+    \left\{ \begin{matrix}
+        F\left(Q\right)=\frac{S-W}{S-P}  &	 \lambda=0	\\
+        Q=K  &	\lambda>0	\\
+    \end{matrix} \right. 
+\end{equation}
+
+
+
+\vspace{5pt}
+\noindent
+{\bf 题目2：}假设报童模型中需求量的概率分布为$F(x)$，成本参数为$c$和$p$，缺货率满足$(\Pr\left(D > Q\right)\leq \alpha )$,试分析在需求量的概率分布为$F(x)$的情况下，最优订货量$Q^*$的计算方法。
+\vspace{5pt}
+\noindent \\
+{\bf 解：}
+这里只需要对其约束条件$Pr\left(D > Q\right)\leq \alpha$进行判定,只有在约束条件为线性的条件下才能求解。
+\begin{align}
+    \max_Q\text{\ }\pi \left( Q^{*} \right) &=\left( P-S \right) \left( \int_0^Q{xf\left( x \right) dx+\int_Q^{\infty}{Qf\left( x \right) dx}} \right) -\left( W-S \right) Q \\
+    s.t.&\Pr\left(D > Q\right)\leq \alpha
+\end{align}
+
+
+这里对其缺货率在单周期问题中作如下假设，由于商品是否缺货会呈现一定的分布形式，其分布函数为$F\left(Q\right)$,则缺货率为$1-F\left(Q\right)$。为了满足线性条件，这里定义为$1-\frac{Q}{D} $约束条件即为：
+\begin{equation}
+  1-\frac{Q}{D}\leq \alpha
+\end{equation} \\
+拉格朗日乘子式：
+\begin{equation}
+    L\left( Q,\lambda  \right) =\pi \left( Q \right) +\lambda \left( 1-\frac{Q}{D}-\alpha \right)
+\end{equation} \\
+对其$Q$求导，得到：
+\begin{equation}
+    \frac{\partial L\left( Q,\lambda  \right)}{\partial Q} =\left( P-S \right) F(Q) -\left( W-S \right) -\frac{\lambda}{D} =0
+\end{equation}
+当$\lambda >0$时，有：
+\begin{align}
+    \lambda \left( 1-\frac{Q}{D}-\alpha \right) =0
+\end{align}
+得出
+\begin{align*}
+  Q &=\left( 1-\alpha \right) D \\
+  \lambda &=\left( P-S \right) F\left( \left( 1-\alpha \right) D \right) -\left( W-S \right)>0
+\end{align*}
+当$\lambda$=0时，有：
+\begin{equation}
+    Q<D\left( 1-\alpha \right)
+\end{equation}
+则$F \left(Q\right)$得出
+\begin{equation}
+    F\left(Q\right)=\frac{S-W}{S-P} >0
+\end{equation}
+综上所述，可以得到最优解$Q^*$的计算方法为：
+\begin{equation}
+    \left\{ \begin{matrix}
+        Q =\left( 1-\alpha \right) D &	\lambda >0	\\
+        F\left(Q\right)=\frac{S-W}{S-P}  &	\lambda =0	\\
+    \end{matrix} \right.
+\end{equation}
+
+\vspace{5pt}
+\noindent
+{\bf 题目3：}假设报童模型中需求量的概率分布为$F(x)$，成本参数为$c$和$p$，订货量受到限制$(Q\leq K)$,缺货率满足$(\Pr\left(D > Q\right)\leq \alpha )$,试分析在需求量的概率分布为$F(x)$的情况下，最优订货量$Q^*$的计算方法。
+\vspace{5pt}
+\noindent \\
+{\bf 解：}
+\begin{align}
+    \max_Q\text{\ }\pi \left( Q^{*} \right) &=\left( P-S \right) \left( \int_0^Q{xf\left( x \right) dx+\int_Q^{\infty}{Qf\left( x \right) dx}} \right) -\left( W-S \right) Q \\
+    s.t.&\Pr\left(D > Q\right)\leq \alpha \\
+    &Q\le K
+\end{align}
+拉格朗日乘子式：
+\begin{equation}
+    L\left( Q,\lambda  \right) =\pi \left( Q \right) +\lambda_2\left(Q-K\right)+\lambda_2 \left( 1-\frac{Q}{D}-\alpha \right)
+\end{equation} \\
+对其$Q$求导，得到：
+\begin{equation}
+    \frac{\partial L\left( Q,\lambda_1,\lambda_2  \right)}{\partial Q} =\left( P-S \right) F(Q) -\left( W-S \right) +\lambda_1 -\frac{\lambda_2}{D} =0
+\end{equation}
+当$\lambda_1 >0,\lambda_2>0$时，有：
+\begin{align*}
+    &Q = K \\
+    &Q =\left( 1-\alpha \right) D 
+\end{align*}
+且满足：
+\begin{align*}
+    W-S-\left( P-S \right) F\left( K \right) =\lambda_1-\frac{\lambda_2 (1-\alpha )}{K}
+\end{align*}
+当$\lambda_1 >0,\lambda_2=0$时，有：
+\begin{align*}
+    &Q = K \\
+    &Q <\left( 1-\alpha \right) D 
+\end{align*}
+且验证：
+\begin{align*}
+    \lambda_1 = W-S-\left( P-S \right) F\left( K \right) <0
+\end{align*}
+则判断其不成立，因此不考虑$\lambda_1 >0,\lambda_2=0$的情况。
+当$\lambda_1 =0,\lambda_2 >0$时，有：
+\begin{align*}
+    &Q < K \\
+    &Q =\left( 1-\alpha \right) D 
+\end{align*}
+且验证：
+\begin{align*}
+    \lambda_2 =D \left(W-S\right)-D \left( P-S \right) F\left( Q \right) >0
+\end{align*}
+则判断其成立。   
+当$\lambda_1 =0,\lambda_2 =0$时，有：
+\begin{align*}
+    &Q < K \\
+    &Q < \left( 1-\alpha \right) D 
+\end{align*}
+且验证：
+\begin{align*}
+    F\left( Q \right) =\frac{S-W}{S-P} >0
+\end{align*}
+则判断其成立。\\
+综上所述，可以得到最优解$Q^*$的计算方法为：
+\begin{equation}
+    \left\{ \begin{matrix}
+        Q =K=\left( 1-\alpha \right) D &	\lambda_1 >0,\lambda_2>0	\\
+        Q =\left( 1-\alpha \right) D &	\lambda_1 =0,\lambda_2>0	\\
+        F\left( Q \right) =\frac{S-W}{S-P}  &	\lambda_1 =0,\lambda_2 =0	\\
+    \end{matrix} \right.
+\end{equation}
+
+     
+
+\vspace{10pt}
+\noindent
+
+
+\end{document}\
