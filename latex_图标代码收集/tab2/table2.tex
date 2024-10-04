@@ -1,4 +1,7 @@
 \documentclass{article}
+\usepackage[utf8]{inputenc} % For UTF-8 encoding
+\usepackage{fontspec} % For using different fonts
+\setmainfont{Arial Unicode MS} % Set a font that supports the required characters
 \usepackage{tabularx}
 \usepackage{multirow}
 \usepackage{hhline}
@@ -8,10 +11,12 @@
 \usepackage[left=2.5cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
 \usepackage[table]{xcolor}
 \usepackage{booktabs}
-
+\usepackage{subcaption}
 \newcommand{\supp}{supplementary material}
 
 \begin{document}
+//本模版的字体还需要修改，和一般论文字体不一样
+//*展示了一个带有颜色的表格。*//
 
 \begin{table*}[!htp]
 \caption{\textbf{Performance of Token Reduction methods with DeiT-S backbone.} Model performance is measured across varying keep rates, $r$, denoted in percentage of tokens kept at each reduction stage. Scores exceeding the DeiT baseline are noted in \textbf{bold}, measured in Top-1 accuracy for ImageNet \& NABirds and mean Average Precision for COCO \& NUS-WIDE. The three best performing methods per keep rate are denoted in descending order with \colorbox{red!25}{red}, \colorbox{orange!25}{orange}, and \colorbox{yellow!25}{yellow}, respectively. Similarly, the three worst performing methods are denoted in descending order with \colorbox{blue!10}{light blue}, \colorbox{blue!20}{blue}, and \colorbox{blue!30}{dark blue}. Results with the DeiT-B and DeiT-T backbones are available in the \supp.}
@@ -39,6 +44,93 @@ PatchMerger & \cellcolor{blue!10}69.44 & \cellcolor{blue!10}74.17 & \cellcolor{b
 Sinkhorn & \cellcolor{blue!20}64.26 & \cellcolor{blue!30}64.07 & \cellcolor{blue!30}64.02 & \cellcolor{blue!30}64.09 &  & \cellcolor{blue!20}48.89 & \cellcolor{blue!30}50.19 & \cellcolor{blue!30}51.46 & \cellcolor{blue!30}51.22 &  & \cellcolor{blue!20}56.93 & \cellcolor{blue!30}56.68 & \cellcolor{blue!30}56.85 & \cellcolor{blue!30}56.65 &  & \cellcolor{blue!20}50.59 & \cellcolor{blue!30}50.67 & \cellcolor{blue!30}50.63 & \cellcolor{blue!30}50.21 \\ \bottomrule
 \end{tabular}%
 }
+\end{table*}
+
+//* 承接上表，分为a、b两表，展示其带有颜色的表。*//
+
+\begin{table*}[!htp]
+    \caption{\textbf{Performance of Token Reduction methods.} Measured across varying keep rates, $r$, and backbone capacities. Scores exceeding the DeiT baseline are noted in \textbf{bold}, measured as Top-1 accuracy for ImageNet \& NABirds and mean Average Precision for COCO and NUS-WIDE. The three best performing methods per keep rate are denoted in descending order with \colorbox{red!25}{red}, \colorbox{orange!25}{orange}, and \colorbox{yellow!25}{yellow},  respectively. Similarly, the three worst performing methods are denoted in descending order with \colorbox{blue!10}{light blue}, \colorbox{blue!20}{blue}, and \colorbox{blue!30}{dark blue}}
+    \label{tab:perfAll}
+    \begin{subtable}{\textwidth}
+    \centering
+    \caption{Performance comparison of token reduction methods trained with a DeiT-Base backbone.}
+    \label{tab:perfBase}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccclcccclcccclcccc@{}}
+    \toprule
+     & \multicolumn{4}{c}{ImageNet} &  & \multicolumn{4}{c}{NABirds} &  & \multicolumn{4}{c}{COCO} &  & \multicolumn{4}{c}{NUS-WIDE} \\ \cmidrule(lr){2-5} \cmidrule(lr){7-10} \cmidrule(lr){12-15} \cmidrule(lr){17-20}  
+    DeiT-B & \multicolumn{4}{c}{81.85} &  & \multicolumn{4}{c}{83.32} &  & \multicolumn{4}{c}{80.93} &  & \multicolumn{4}{c}{64.37} \\ \midrule\midrule
+    $r$  (\%) & 25 & 50 & 70 & 90 &  & 25 & 50 & 70 & 90 &  & 25 & 50 & 70 & 90 &  & 25 & 50 & 70 & 90 \\ \midrule
+    
+    $\ell_1$ & 71.23 & 74.96 & 78.94 & 81.04 &  & 59.79 & 71.57 & 78.92 & 82.42 &  & 58.28 & 69.27 & 76.23 & 79.65 &  & 53.01 & 60.10 & 63.25 & 64.14 \\
+    $\ell_2$ & 71.41 & 75.40 & 79.07 & 81.18 &  & 61.55 & 73.24 & 79.52 & 82.55 &  & 59.69 & 70.33 & 76.56 & 79.75 &  & 54.00 & 60.37 & 63.29 & 64.28 \\
+    $\ell_\infty$ & 71.67 & \cellcolor{blue!10}74.40 & 78.95 & 81.20 &  & 59.96 & 70.51 & 79.73 & 82.59 &  & 58.48 & 68.50 & 76.54 & 79.89 &  & 53.00 & 59.59 & 63.12 & 64.25 \\ \midrule
+    Top-K & \cellcolor{yellow!25}73.63 & \cellcolor{orange!25}78.97 & \cellcolor{yellow!25}80.91 & \cellcolor{red!25}\textbf{82.03} &  & \cellcolor{orange!25}74.71 & \cellcolor{orange!25}82.22 & \cellcolor{red!25}83.20 & \cellcolor{red!25}\textbf{83.40} &  & \cellcolor{yellow!25}67.63 & \cellcolor{orange!25}76.91 & \cellcolor{red!25}79.95 & \cellcolor{red!25}\textbf{80.97} &  & 58.51 & \cellcolor{yellow!25}62.78 & \cellcolor{yellow!25}63.92 & \cellcolor{yellow!25}\textbf{64.40} \\
+    EViT & \cellcolor{red!25}75.26 & \cellcolor{red!25}79.22 & \cellcolor{orange!25}80.99 & \cellcolor{orange!25}\textbf{82.00} &  & \cellcolor{red!25}74.73 & \cellcolor{yellow!25}82.00 & \cellcolor{orange!25}83.19 & \cellcolor{orange!25}\textbf{83.33} &  & \cellcolor{red!25}68.93 & \cellcolor{red!25}76.92 & \cellcolor{orange!25}79.87 & \cellcolor{orange!25}80.92 &  & \cellcolor{orange!25}59.00 & \cellcolor{orange!25}62.88 & 63.90 & \cellcolor{orange!25}\textbf{64.43} \\
+    DynamicViT & \cellcolor{blue!30}27.94 & 74.58 & 80.68 & \cellcolor{yellow!25}81.76 &  & \cellcolor{blue!10}49.23 & \cellcolor{red!25}82.30 & \cellcolor{yellow!25}83.16 & 83.23 &  & \cellcolor{blue!30}24.88 & \cellcolor{blue!10}62.79 & 76.54 & \cellcolor{yellow!25}80.64 &  & \cellcolor{blue!30}28.56 & \cellcolor{blue!20}55.51 & \cellcolor{blue!10}60.73 & 63.83 \\
+    ATS & \cellcolor{orange!25}73.89 & \cellcolor{yellow!25}78.94 & 80.78 & 81.57 &  & \cellcolor{yellow!25}71.00 & 80.10 & 82.58 & \cellcolor{yellow!25}83.26 &  & \cellcolor{orange!25}68.17 & \cellcolor{yellow!25}76.38 & \cellcolor{yellow!25}79.35 & 80.50 &  & \cellcolor{red!25}59.49 & \cellcolor{red!25}63.17 & \cellcolor{red!25}64.21 & \cellcolor{red!25}\textbf{64.48} \\ \midrule
+    ToMe & - & 78.89 & \cellcolor{red!25}81.05 & \cellcolor{orange!25}\textbf{82.00} &  & - & 73.67 & 81.59 & 82.98 &  & - & 74.11 & 78.82 & 80.48 &  & - & 62.38 & \cellcolor{orange!25}64.06 & 64.35 \\
+    K-Medoids & 69.12 & 76.86 & 79.98 & \cellcolor{yellow!25}81.76 &  & 57.54 & 75.29 & 80.62 & 82.57 &  & 61.79 & 73.60 & 77.58 & 80.32 &  & 56.67 & 62.18 & 63.53 & 64.35 \\
+    DPC-KNN & 69.40 & 75.87 & 79.06 & 81.05 &  & 58.16 & \cellcolor{blue!10}67.36 & 72.83 & 78.29 &  & 65.99 & 73.32 & 77.03 & 79.76 &  & \cellcolor{yellow!25}58.58 & 61.39 & 62.96 & 63.87 \\ \midrule
+    SiT & 68.39 & 75.53 & \cellcolor{blue!10}76.63 & \cellcolor{blue!10}77.26 &  & 65.09 & 70.75 & \cellcolor{blue!10}70.36 & \cellcolor{blue!10}68.96 &  & 54.86 & \cellcolor{blue!20}53.27 & \cellcolor{blue!20}53.16 & \cellcolor{blue!20}52.73 &  & 56.12 & 59.76 & \cellcolor{blue!20}60.64 & \cellcolor{blue!20}61.08 \\
+    PatchMerger & \cellcolor{blue!20}58.78 & \cellcolor{blue!20}70.63 & \cellcolor{blue!20}74.52 & \cellcolor{blue!20}76.76 &  & \cellcolor{blue!30}40.38 & \cellcolor{blue!20}57.21 & \cellcolor{blue!20}62.20 & \cellcolor{blue!20}67.06 &  & \cellcolor{blue!10}54.25 & 66.22 & \cellcolor{blue!10}70.97 & \cellcolor{blue!10}73.72 &  & \cellcolor{blue!10}51.80 & \cellcolor{blue!10}58.83 & 60.79 & \cellcolor{blue!10}62.09 \\
+    Sinkhorn & \cellcolor{blue!10}63.37 & \cellcolor{blue!30}63.33 &\cellcolor{blue!30}63.36 & \cellcolor{blue!30}63.50 &  & \cellcolor{blue!20}42.89 &\cellcolor{blue!30}42.33 & \cellcolor{blue!30}41.72 & \cellcolor{blue!30}42.86 &  & \cellcolor{blue!20}52.57 & \cellcolor{blue!30}52.33 & \cellcolor{blue!30}52.21 & \cellcolor{blue!30}52.12 &  & \cellcolor{blue!20}47.55 & \cellcolor{blue!30}47.41 & \cellcolor{blue!30}47.26 & \cellcolor{blue!30}47.48 \\ \bottomrule
+    \end{tabular}%
+    }
+    \end{subtable}
+    
+    \bigskip
+    \begin{subtable}{\textwidth}
+    \centering
+    \label{tab:perfTiny}
+    \caption{Performance comparison of token reduction methods trained with a DeiT-Tiny backbone.}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{@{}lcccclcccclcccclcccc@{}}
+    \toprule
+     & \multicolumn{4}{c}{ImageNet} &  & \multicolumn{4}{c}{NABirds} &  & \multicolumn{4}{c}{COCO} &  & \multicolumn{4}{c}{NUS-WIDE} \\ \cmidrule(lr){2-5} \cmidrule(lr){7-10} \cmidrule(lr){12-15} \cmidrule(lr){17-20} 
+    DeiT-T & \multicolumn{4}{c}{72.20} & & \multicolumn{4}{c}{74.16} & & \multicolumn{4}{c}{71.09} & & \multicolumn{4}{c}{59.27} \\ \midrule\midrule
+    $r$  (\%) & 25 & 50 & 70 & 90 &  & 25 & 50 & 70 & 90 &  & 25 & 50 & 70 & 90 &  & 25 & 50 & 70 & 90 \\ \midrule
+    $\ell_1$ & 58.58 & \cellcolor{blue!10}62.27 & 67.91 & 71.06 &  & 51.82 & 59.25 & 68.36 & 73.47 &  & \cellcolor{blue!10}49.09 & \cellcolor{blue!10}58.27 & 67.03 & 70.24 &  & \cellcolor{blue!10}44.81 & 52.64 & 57.30 & 58.73 \\
+    $\ell_2$ & 58.85 & 62.91 & 67.91 & 71.13 &  & 53.10 & 60.87 & 69.20 & 73.42 &  & 50.46 & 60.00 & 67.33 & 69.98 &  & 45.73 & 53.45 & 57.34 & 58.54 \\
+    $\ell_\infty$ & 59.08 & \cellcolor{blue!20}61.92 & \cellcolor{blue!10}67.79 & 71.38 &  & 52.60 & 57.70 & 69.25 & 73.34 &  & 50.08 & 57.30 & 67.22 & 69.89 &  & 45.32 & 51.91 & 57.41 & 58.30 \\ \midrule
+    Top-K & 62.19 & 68.55 & 70.96 & 71.85 &  & 62.14 & \cellcolor{orange!25}73.19 & \cellcolor{red!25}\textbf{74.57} & \cellcolor{red!25}\textbf{74.64} &  & 60.31 & \cellcolor{yellow!25}67.47 & \cellcolor{orange!25}70.20 & \cellcolor{red!25}\textbf{71.65} &  & 52.20 & 57.02 & \cellcolor{orange!25}58.60 & \cellcolor{red!25}\textbf{59.50} \\
+    EViT & \cellcolor{orange!25}64.11 & \cellcolor{yellow!25}68.69 & \cellcolor{yellow!25}71.06 & 71.83 &  & \cellcolor{yellow!25}64.13 & \cellcolor{red!25}73.24 & \cellcolor{orange!25}\textbf{74.49} & \cellcolor{orange!25}\textbf{74.53} &  & \cellcolor{orange!25}61.44 & \cellcolor{orange!25}67.62 & \cellcolor{red!25}70.25 & \cellcolor{orange!25}\textbf{71.63} &  & \cellcolor{orange!25}53.09 & \cellcolor{yellow!25}57.26 & \cellcolor{red!25}58.64 & \cellcolor{orange!25}\textbf{59.49} \\
+    DynamicViT & \cellcolor{blue!30}36.93 & 67.40 & 70.94 & \cellcolor{orange!25}72.14 &  & 57.38 & \cellcolor{yellow!25}72.54 & \cellcolor{yellow!25}73.97 & \textbf{74.30} &  & \cellcolor{blue!30}24.67 & 61.70 & 68.83 & \cellcolor{yellow!25}\textbf{71.30} &  & \cellcolor{blue!30}28.09 & \cellcolor{blue!10}49.36 & 56.79 & 58.95 \\
+    ATS & 62.63 & 68.61 & 70.77 & 71.71 &  & \cellcolor{red!25}64.53 & 71.07 & 73.71 & \textbf{74.43} &  & \cellcolor{yellow!25}60.97 &67.37 & \cellcolor{yellow!25}69.88 & \textbf{71.10} &  & \cellcolor{yellow!25}52.85 & \cellcolor{orange!25}57.30 & \cellcolor{yellow!25}58.55 & \cellcolor{yellow!25}59.20 \\ \midrule
+    ToMe & - & \cellcolor{red!25}69.72 & \cellcolor{red!25}71.74 & \cellcolor{red!25}72.16 &  & - & 66.61 & 73.65 & \cellcolor{yellow!25}\textbf{74.50} &  & - & 65.66 & 69.70 & \textbf{71.16} &  & - & 55.32 & 57.78 & 58.98 \\
+    K-Medoids & \cellcolor{blue!10}57.50 & 65.82 & 69.90 & 71.50 &  & 44.62 & 66.52 & 72.09 & 74.04 &  & 54.08 & 64.83 & 69.09 & 71.05 &  & 49.13 & 55.92 & 58.38 & 59.07 \\
+    DPC-KNN & \cellcolor{red!25}64.56 & \cellcolor{orange!25}69.68 & \cellcolor{orange!25}71.10 & \cellcolor{yellow!25}71.88 &  & \cellcolor{orange!25}64.23 & 71.05 & 73.02 & 74.05 &  & \cellcolor{red!25}63.32 & \cellcolor{red!25}68.03 & 69.55 & 70.84 &  & \cellcolor{red!25}55.37 & \cellcolor{red!25}57.33 & 58.08 & 58.88 \\ \midrule
+    SiT & \cellcolor{yellow!25}63.43 & 67.98 & 68.99 & \cellcolor{blue!10}68.90 &  & \cellcolor{blue!30}36.35 & \cellcolor{blue!20}36.65 & \cellcolor{blue!30}34.00 & \cellcolor{blue!30}35.07 &  & \cellcolor{blue!20}48.01 & \cellcolor{blue!30}47.50 & \cellcolor{blue!30}46.98 & \cellcolor{blue!30}46.48 &  & \cellcolor{blue!20}36.67 & \cellcolor{blue!30}38.15 & \cellcolor{blue!30}36.98 & \cellcolor{blue!30}37.70 \\
+    PatchMerger & 60.38 & 64.80 & \cellcolor{blue!20}66.81 & \cellcolor{blue!20}68.09 &  & \cellcolor{blue!10}38.83 & \cellcolor{blue!10}54.20 & \cellcolor{blue!10}59.94 & \cellcolor{blue!10}62.60 &  & 52.49 & 59.69 & \cellcolor{blue!10}62.63 & \cellcolor{blue!10}64.30 &  & 47.56 & 52.69 & \cellcolor{blue!10}54.33 & \cellcolor{blue!10}55.37 \\
+    Sinkhorn & \cellcolor{blue!20}53.61 & \cellcolor{blue!30}53.49 & \cellcolor{blue!30}53.19 & \cellcolor{blue!30}53.51 &  & \cellcolor{blue!20}36.94 & \cellcolor{blue!30}35.98 & \cellcolor{blue!20}37.29 & \cellcolor{blue!20}36.19 &  & 50.47 & \cellcolor{blue!20}49.52 & \cellcolor{blue!20}49.12 & 4\cellcolor{blue!20}9.01 &  & 45.77 & \cellcolor{blue!20}44.81 & \cellcolor{blue!20}44.52 & \cellcolor{blue!20}44.20 \\ \bottomrule
+    \end{tabular}%
+    }
+    \end{subtable}
+\end{table*}
+
+//z这是一个普通的三线表，只做参考
+\begin{table*}[!htp]
+    \caption{\textbf{Selected token reduction method hyperparameters - ImageNet.} We present the selected hyperparameters when searching on ImageNet for each token reduction method.}
+    \label{tab:imagenetHyper}
+    \centering
+    \begin{tabular}{@{}lccclccclccclccc@{}}
+    \toprule
+     $r$ (\%) & \multicolumn{3}{c}{25} &  & \multicolumn{3}{c}{50} &  & \multicolumn{3}{c}{70} &  & \multicolumn{3}{c}{90} \\\cmidrule(lr){2-4} \cmidrule(lr){6-8} \cmidrule(lr){10-12} \cmidrule(lr){14-16}
+     & W-E & B-LR & B-FE & & W-E & B-LR & B-FE & & W-E & B-LR & B-FE & & W-E & B-LR & B-FE \\ \midrule
+    $\ell_1$ & 5 & 1 & 0 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 \\
+    $\ell_2$ & 5 & 1 & 0 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 \\
+    $\ell_\infty$ & 5 & 1 & 0 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 \\ \midrule
+    Top-K & 5 & 1 & 0 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 & & 20 & 1 & 0 \\
+    EViT & 5 & 1 & 0 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 & & 20 & 1 & 0 \\
+    DynamicViT & 20 & 0.01 & 5 & & 5 & 0.01 & 5 & & 20 & 0.01 & 5 & & 20 & 0.01 & 5 \\
+    ATS & 5 & 1 & 0 & & 5 & 0.01 & 5 & & 20 & 0.01 & 5 & & 5 & 0.01 & 5 \\ \midrule
+    ToMe & - & - & - & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 \\
+    K-Medoids & 5 & 1 & 0 & & 5 & 0.01 & 5 & & 20 & 0.01 & 5 & & 20 & 1 & 0 \\
+    DPC-KNN & 5 & 0.01 & 5 & & 20 & 0.01 & 5 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 \\ \midrule
+    SiT & 5 & 0.01 & 5 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 & & 20 & 0.01 & 5 \\
+    PatchMerger & 5 & 0.01 & 5 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 & & 5 & 0.01 & 5 \\
+    Sinkhorn & 5 & 1 & 0 & & 5 & 1 & 0 & & 5 & 1 & 0 & & 5 & 1 & 0 \\ \bottomrule
+    \end{tabular}
 \end{table*}
 
 \end{document}
