@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{graphicx}
+\usepackage{cellspace}
+\usepackage{setspace}
+\usepackage[left=2.5cm,right=2.5cm,top=3cm,bottom=3cm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+
+\newcommand{\supp}{supplementary material}
+
+\begin{document}
+
+\begin{table*}[!htp]
+\caption{\textbf{Performance of Token Reduction methods with DeiT-S backbone.} Model performance is measured across varying keep rates, $r$, denoted in percentage of tokens kept at each reduction stage. Scores exceeding the DeiT baseline are noted in \textbf{bold}, measured in Top-1 accuracy for ImageNet \& NABirds and mean Average Precision for COCO \& NUS-WIDE. The three best performing methods per keep rate are denoted in descending order with \colorbox{red!25}{red}, \colorbox{orange!25}{orange}, and \colorbox{yellow!25}{yellow}, respectively. Similarly, the three worst performing methods are denoted in descending order with \colorbox{blue!10}{light blue}, \colorbox{blue!20}{blue}, and \colorbox{blue!30}{dark blue}. Results with the DeiT-B and DeiT-T backbones are available in the \supp.}
+\label{tab:perfSmall}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lcccclcccclcccclcccc@{}}
+\toprule
+ & \multicolumn{4}{c}{ImageNet} &  & \multicolumn{4}{c}{NABirds} &  & \multicolumn{4}{c}{COCO} &  & \multicolumn{4}{c}{NUS-WIDE} \\ \cmidrule(lr){2-5} \cmidrule(lr){7-10} \cmidrule(lr){12-15} \cmidrule(lr){17-20}
+DeiT-S & \multicolumn{4}{c}{79.85} & & \multicolumn{4}{c}{80.57} & & \multicolumn{4}{c}{78.11} & & \multicolumn{4}{c}{63.23} \\ \midrule\midrule
+$r$  (\%) & 25 & 50 & 70 & 90 &  & 25 & 50 & 70 & 90 &  & 25 & 50 & 70 & 90 &  & 25 & 50 & 70 & 90 \\ \midrule
+
+$\ell_1$ & 70.05 & 74.47 & \cellcolor{blue!10}77.25 & 79.17 &  & 62.90 & 70.52 & 77.10 & 80.08 &  & 61.28 & 69.49 & 74.31 & 77.09 &  & \cellcolor{blue!10}54.44 & 59.60 & 61.98 & 62.91 \\
+$\ell_2$ & 70.54 & 74.86 & 77.41 & 79.27 &  & 64.28 & 72.09 & 77.53 & 80.11 &  & 62.23 & 70.30 & 74.66 & 77.19 &  & 55.31 & 60.22 & 62.07 & 62.71 \\
+$\ell_\infty$ & 70.58 & \cellcolor{blue!20}74.03 & 77.48 & 79.23 &  & 63.36 & 70.19 & 77.23 & 79.96 &  & 61.50 & 69.11 & 74.73 & 77.27 &  & 55.10 & 59.34 & 62.11 & 62.77 \\ \midrule
+Top-K & 72.91 & 77.82 & \cellcolor{yellow!25}79.22 & \cellcolor{orange!25}\textbf{79.87} &  & \cellcolor{orange!25}76.28 & \cellcolor{orange!25}80.38 & \cellcolor{yellow!25}\textbf{80.70} & \textbf{80.60} &  & \cellcolor{yellow!25}70.14 & \cellcolor{red!25}75.84 & \cellcolor{red!25}77.50 & \cellcolor{red!25}78.09 &  & 59.32 & \cellcolor{yellow!25}61.98 & \cellcolor{orange!25}62.69 & \cellcolor{red!25}\textbf{63.26} \\
+EViT & \cellcolor{yellow!25}74.17 & \cellcolor{orange!25}78.08 & \cellcolor{orange!25}79.30 & \cellcolor{orange!25}\textbf{79.87} &  & \cellcolor{red!25}76.74 & \cellcolor{yellow!25}80.28 & \cellcolor{orange!25}\textbf{80.73} & \cellcolor{yellow!25}\textbf{80.64} &  & \cellcolor{orange!25}71.28 & \cellcolor{orange!25}75.78 & \cellcolor{red!25}77.50 & \cellcolor{orange!25}78.07 &  & \cellcolor{yellow!25}59.69 & 61.89 & \cellcolor{yellow!25}62.67 & \cellcolor{orange!25}\textbf{63.25} \\
+DynamicViT & \cellcolor{blue!30}60.32 & 77.84 & 79.17 & \cellcolor{yellow!25}79.79 &  & 70.60 & \cellcolor{red!25}\textbf{80.62} & \cellcolor{red!25}\textbf{80.77} & \cellcolor{red!25}\textbf{80.84} &  & \cellcolor{blue!30}39.18 & 69.02 & 75.43 & 77.69 &  & \cellcolor{blue!30}39.20 & \cellcolor{blue!20}57.83 & 61.96 & 63.16 \\
+ATS & 72.95 & 77.86 & 79.09 & 79.63 &  & \cellcolor{yellow!25}73.46 & 78.89 & 80.36 & 80.55 &  & 70.13 & 75.66 & \cellcolor{yellow!25}77.23 & 77.83 &  & \cellcolor{orange!25}60.20 & \cellcolor{red!25}62.35 & \cellcolor{red!25}62.93 & \cellcolor{yellow!25}63.18 \\ \midrule
+ToMe & - & \cellcolor{red!25}78.29 & \cellcolor{red!25}79.63 & \cellcolor{red!25}\textbf{79.92} &  & - & 74.99 & 80.05 & \cellcolor{orange!25}\textbf{80.68} &  & - & 74.99 & \cellcolor{orange!25}77.36 & 77.88 &  & - & 61.51 & 62.50 & 62.89 \\
+K-Medoids & 68.94 & 76.44 & 78.74 & 79.73 &  & 65.28 & 76.95 & 79.75 & 80.46 &  & 66.26 & 74.15 & 76.76 & \cellcolor{yellow!25}77.94 &  & 57.78 & 61.48 & 62.47 & 63.12 \\
+DPC-KNN & \cellcolor{red!25}75.01 & \cellcolor{yellow!25}77.95 & 78.85 & 79.54 &  & 68.77 & 74.14 & 76.70 & 78.88 &  & \cellcolor{red!25}72.15 & \cellcolor{yellow!25}75.70 & 77.06 & 77.74 &  & \cellcolor{red!25}60.78 & \cellcolor{orange!25}62.11 & \cellcolor{yellow!25}62.67 & 62.93 \\ \midrule
+SiT & \cellcolor{orange!25}74.65 & 77.16 & 77.52 & \cellcolor{blue!10}77.71 &  & \cellcolor{blue!10}62.82 & \cellcolor{blue!10}62.02 & \cellcolor{blue!20}60.72 & \cellcolor{blue!20}58.50 &  & \cellcolor{blue!10}57.65 & \cellcolor{blue!20}57.33 & \cellcolor{blue!20}57.11 & \cellcolor{blue!20}57.13 &  & 57.95 & \cellcolor{blue!10}58.84 & \cellcolor{blue!20}59.29 & \cellcolor{blue!20}59.59 \\
+PatchMerger & \cellcolor{blue!10}69.44 & \cellcolor{blue!10}74.17 & \cellcolor{blue!20}75.80 & \cellcolor{blue!20}76.75 &  & \cellcolor{blue!30}47.26 & \cellcolor{blue!20}61.34 & \cellcolor{blue!10}65.45 & \cellcolor{blue!10}68.24 &  & 62.24 & \cellcolor{blue!10}68.09 & \cellcolor{blue!10}70.75 & \cellcolor{blue!10}72.12 &  & 55.82 & 59.27 & \cellcolor{blue!10}60.46 & \cellcolor{blue!10}61.20 \\
+Sinkhorn & \cellcolor{blue!20}64.26 & \cellcolor{blue!30}64.07 & \cellcolor{blue!30}64.02 & \cellcolor{blue!30}64.09 &  & \cellcolor{blue!20}48.89 & \cellcolor{blue!30}50.19 & \cellcolor{blue!30}51.46 & \cellcolor{blue!30}51.22 &  & \cellcolor{blue!20}56.93 & \cellcolor{blue!30}56.68 & \cellcolor{blue!30}56.85 & \cellcolor{blue!30}56.65 &  & \cellcolor{blue!20}50.59 & \cellcolor{blue!30}50.67 & \cellcolor{blue!30}50.63 & \cellcolor{blue!30}50.21 \\ \bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+\end{document}
