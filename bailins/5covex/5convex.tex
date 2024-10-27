@@ -1,0 +1,134 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.0cm,bottom=2.5cm}
+\usepackage[english]{babel}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage[fontset=windows]{ctex}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{fontspec} % 使用 fontspec 包
+\setmainfont{Times New Roman} % 设置主字体为 Times New Roman
+
+
+\begin{document}
+
+
+\title{
+{\heiti《高等运筹学》第~{$5$} 次作业
+% \footnote{
+%  缺货率处理为线性，因此在约束条件为线性的情况下才能求解。在单周期问题中，未查到缺货率相关概念。
+% }
+}
+}
+\date{}
+
+\author{
+	姓名：\underline{王章任}~~~~~~
+	学号：\underline{2024201050128}~~~~~~}
+
+\maketitle
+
+% \noindent
+% % \section*{\heiti \color{red}{报童模型拓展}}
+\noindent
+{\bf 题1(1)：}For each of the following functions determine whether it is convex, concave quasiconvex, or quasiconcave.\\
+(a)~ \(f(x_1,x_2)=x_1x_2\) on \(\mathbf{R}_{++}^2\).
+
+\vspace{5pt}
+\noindent
+{\bf 解：}
+\(f\)的海塞矩阵为：
+\begin{align*}
+    \mathbf{\bigtriangledown} ^2f(x)=
+    \begin{bmatrix} 
+        0 & 1\\
+        1 & 0 
+    \end{bmatrix} 
+\end{align*}
+\(\bigtriangledown ^2f\) 既不是正定也不是负定，因此函数\(f\)不是凸函数也不是凹函数。它是准凹的，其超集为：
+\begin{align*}
+    \{(x_1,x_2) \in \mathbf{R}_{++}^2 | x_1x_2 \geq \alpha\}
+\end{align*}
+\\
+
+\vspace{5pt}
+\noindent
+{\bf 题1(2)：}~ \(f(x)=||Ax-b||,A \in \mathbb{R}^{m\times n} ,b \in \mathbb{R}^n\).Hint:composition.
+
+\vspace{5pt}
+\noindent
+{\bf 解：}
+2范数首先可知是凸的，函数\(f(x)=||Ax-b||\)可以看做凸函数\(g(y)=||y||\)与放射变化\(h(x)=Ax-b\)的组合，其中放射变化的\(h(x)\)为凸函数。有复合函数满足凸性的条件：
+\begin{enumerate}
+    \item \(h,g\) 是凸函数，\(\hat{g}\)是非减。
+    \item \(h,g\) 是凸函数，\(\hat{g}\)是非增。
+\end{enumerate}
+可知，\(f(x)\)是凸函数。\\
+
+\vspace{5pt}
+\noindent
+{\bf 题2：}Suppose \(f:\mathbb{R}^n \rightarrow \mathbb{R}\) is convex with  \(\mathbf{dom}~f:\mathbb{R}\) , and bounded above on \(\mathbb{R}\). Show that \(f\) is a constant.
+\vspace{5pt}
+\noindent \\
+{\bf 解：}由于：\(f\)在\(\mathbf{dom}~f=\mathbb{R}^n\)为凸函数，则对于任意的\(x,y \in \mathbb{R}^n\)和\(\theta  \in [0,1]\)都有：
+\begin{align*}
+    f(\theta x+(1-\theta)y) \leq \theta f(x)+(1-\theta)f(y)
+\end{align*}
+
+由于：在\( \mathbb{R}^n\)中有界，则存在一个实数\(M\),使得对于所有\(x \in \mathbb{R}^n\)有：
+\begin{align*}
+    f(x)\le M
+\end{align*}
+
+我们做出假设：\(f\)不是常数，那么存在\(x_1,x_2 \in \mathbb{R}^n\)使得\(f(x_1)\neq f(x_2)\),不失一般性，假设\(f(x_1)\le f(x_2)\)。
+给定一个凸组合\(z \in \mathbf{dom}~f\),对于任意的\(\lambda \in (0,1)\),满足：
+\begin{align*}
+    z=\lambda x_1+(1-\lambda)x_2
+\end{align*}
+根据\(f\)的凸性
+\begin{align*}
+    f(z)\le \lambda f(x_1)+(1-\lambda)f(x_2)
+\end{align*}
+当\(\lambda \rightarrow 0\)时，\(z \rightarrow x_2\)不等式变为：
+\begin{align*}
+    \lim_{\lambda \to 0}f(z)&\le \lim_{\lambda \to 0}(\lambda f(x_1)+(1-\lambda)f(x_2)) \\
+    f(z)& \le f(x_2)
+\end{align*} 
+当\(\lambda \rightarrow 1\)时，\(z \rightarrow x_1\)不等式变为：
+\begin{align*}
+    \lim_{\lambda \to 1}f(z)&\le \lim_{\lambda \to 1}(\lambda f(x_1)+(1-\lambda)f(x_2)) \\
+    f(z)& \le f(x_1)
+\end{align*} 
+
+若\(f(x_1)\neq f(x_2)\)，则与有界性\(f(z)\le M\)矛盾。只有当\(f(x_1)=f(x_2)\)时上诉不等式成立。
+因此，我们假设\(f\)不是常数的假设不成立。因此\(f\)必须是常数函数。
+
+\vspace{5pt}
+\noindent
+{\bf 题3：}
+Derive the conjugate of \(f(x)=\frac{1}{x},x > 0 \)
+\vspace{5pt}
+\noindent \\
+{\bf 解：}
+共轭函数的形式为：
+\begin{align*}
+    f^*(y)=\sup _{x \in \mathbf{dom} f} \{y^Tx-f(x)\}
+\end{align*}
+带入\(f(x)=\frac{1}{x},x > 0 \),并对\(x\)求偏导：
+\begin{align*}
+    &\frac{\partial (xy- \frac{1}{x})}{\partial x}=0 \\
+    &\Rightarrow  y+\frac{1}{x^2}=0
+\end{align*}
+由此可知\(f^*(y)\)的表达式：
+\begin{align*}
+    f^*(y)=y\sqrt{-y^{-1}} -\frac{1}{\sqrt{-y^{-1}}}=-\sqrt{-4y}(y<0)
+\end{align*}
+
+
+\vspace{10pt}
+\noindent
+
+\end{document}\

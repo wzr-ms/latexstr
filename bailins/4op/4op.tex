@@ -1,0 +1,113 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.0cm,bottom=2.5cm}
+\usepackage[english]{babel}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage[fontset=windows]{ctex}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{fontspec} % 使用 fontspec 包
+\setmainfont{Times New Roman} % 设置主字体为 Times New Roman
+
+
+\begin{document}
+
+
+\title{
+{\heiti《高等运筹学》第 {$4$} 次作业
+% \footnote{
+%  缺货率处理为线性，因此在约束条件为线性的情况下才能求解。在单周期问题中，未查到缺货率相关概念。
+% }
+}
+}
+\date{}
+
+\author{
+	姓名：\underline{王章任}~~~~~~
+	学号：\underline{2024201050128}~~~~~~}
+
+\maketitle
+
+% \noindent
+% % \section*{\heiti \color{red}{报童模型拓展}}
+\noindent
+{\bf 题1(a)：}Which of the following sets are convex?\\
+(a)~ A $slab$, $i.e.$, a set of the form$\{x \in \mathbf{R}^n| \alpha \leq a^T \le \beta\}$
+
+\vspace{5pt}
+\noindent
+{\bf 解：}
+这是两个半空间的形成的交集，所以构造成其凸集。因此该集合是凸集。\\
+
+\vspace{5pt}
+\noindent
+{\bf 题1(b)：}~The set.$x+S_2 \subseteq S_1 $ ,where  $S_1,S_2 \subseteq\mathbf{R}^n $ with $S_1$ convex.
+
+\vspace{5pt}
+\noindent
+{\bf 解：}
+如果$x+y \subseteq S_1 $ ,对于所有的 $y \in S_2$,$x+S_2 \subseteq S_1$ 是一个凸集 .因此：
+\begin{align*}
+	\{x|x+S_2 \subseteq S_{1}\}=\bigcap_{y \in S_2}\{x|x+y \subseteq S_{1}\}=\bigcap_{y \in S_2} (S_{1}-y)
+\end{align*}
+$S_1-y$为凸集的交集也为凸集.\\
+
+\vspace{5pt}
+\noindent
+{\bf 题2：}Let~$C_1,C_2 \subseteq \mathbb{R}^n $~be convex sets. Show that $S=\theta_1C_1+\theta_2C_2$,where
+\begin{align*}
+	C_1+C_2:=\{z\in\mathbb{R}^n|z=z_1+z_2,z_1\in C_1,z_2\in C_2\},
+\end{align*}
+is convex for any \(\theta_1,\theta_2 \in \mathbb{R}\).
+
+\vspace{5pt}
+\noindent \\
+{\bf 解：}要证明$S=\theta_1C_1+\theta_2C_2$是凸集，我们需要证明任意两个点\(x,y \in S\)和对任意的\(\lambda \in (0,1),\)的点\(\lambda x+(1-\lambda)y \in S\)
+使用\(C_1\)和\(C_2\)的元素表示\(x\)和\(y\):
+\begin{align*}
+	x=\theta_1 x_1+\theta_2 x_2 \quad y=\theta_1 y_1+\theta_2 y_2
+\end{align*}
+其中\(x_1,y_1 \in C_1 \)和\(x_2,y_2 \in C_2\)
+
+由\(z=\lambda x +(1-\lambda)y\)带入得到：
+\begin{equation*}
+	z=\lambda(\theta_1 x_1+\theta_2 x_2)+(1-\lambda)(\theta_1 y_1+\theta_2 y_2) \\
+	=\theta_1(\lambda x_1+(1-\lambda)y_1)+\theta_2(\lambda x_2+(1-\lambda)y_2)
+\end{equation*}
+由于\(C_1\)和\(C_2\)属于凸集，
+\begin{align*}
+	z_1=\lambda x_1+(1-\lambda)y_1 \in C_1 \quad z_2 = \lambda x_2+(1-\lambda)y_2 \in C_2
+\end{align*}
+所以\(z \in S\)，所以\(S\)是凸集。\\
+
+\vspace{5pt}
+\noindent
+{\bf 题3：}Show that if $S_1$ and $S_2$ are convex sets in $\mathbf{R}^{m \times n}$,then so is their partial sum
+\begin{align*}
+	S=\{(x,y_1+y_2)|x \in \mathbf{R}^m,y_1,y_2 \in \mathbf{R}^n ,(x,y_1) \in S_1,(x,y_2) \in S_2\}
+\end{align*}
+\vspace{5pt}
+\noindent \\
+{\bf 解：}
+列举出两个点$(\bar{x},\bar{y_1}+\bar{y_2})$,$(\tilde{x},\tilde{y}_1+\tilde{y}_2) \in S_1,i.e.$,这个点同时满足：
+\begin{align*}
+	(\bar{x},\bar{y}_1)\in S_1,\quad(\bar{x},\bar{y}_2)\in S_2,\quad(\tilde{x},\tilde{y}_1)\in S_1,\quad(\tilde{x},\tilde{y}_2)\in S_2.
+\end{align*}
+构造出一个凸组合,令$(0\le \theta \le 1)$
+\begin{align*}
+	\theta(\bar{x},\bar{y}_1+\bar{y}_2)+(1-\theta)(\tilde{x},\tilde{y}_1+\tilde{y}_2)=(\theta\bar{x}+(1-\theta)\tilde{x},(\theta\bar{y}_1+(1-\theta)\tilde{y}_1)+(\theta\bar{y}_2+(1-\theta)\tilde{y}_2))
+\end{align*}
+由于：
+\begin{align*}
+	(\theta \bar{x}+(1-\theta)\tilde{x},\theta\bar{y}_1+(1-\theta)\tilde{y}_1) \in S_1, \quad (\theta \bar{x}+(1-\theta)\tilde{x},\theta\bar{y}_2+(1-\theta)\tilde{y}_2) \in S_2
+\end{align*}
+我们可知，$S_1,S_2$是凸集,由凸集相加得到的是凸集的定理可知，$S$是凸集。
+
+
+\vspace{10pt}
+\noindent
+
+\end{document}\

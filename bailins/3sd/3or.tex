@@ -1,0 +1,143 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.0cm,bottom=2.5cm}
+\usepackage[english]{babel}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{amsfonts}
+\usepackage[longend,ruled,linesnumbered]{algorithm2e}
+\usepackage{fancyhdr}
+\usepackage[fontset=windows]{ctex}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic} % For UTF-8 encoding
+\usepackage{fontspec} % For using different fonts
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}
+
+\begin{document}
+
+
+\title{
+{\heiti《高等运筹学》第 {$3$} 次作业
+% \footnote{
+%  缺货率处理为线性，因此在约束条件为线性的情况下才能求解。在单周期问题中，未查到缺货率相关概念。
+% }
+}
+}
+\date{}
+
+\author{
+	姓名：\underline{王章任}~~~~~~
+	学号：\underline{2024201050128}~~~~~~}
+
+\maketitle
+
+\noindent
+\section*{\heiti \color{red}{古诺模型拓展}}
+\noindent
+{\bf 题目：}假设在古诺模型的基础上引入订货与产量限制$K$,s使用KKT条件对其进行求解
+
+
+
+\vspace{5pt}
+\noindent
+{\bf 解：}
+古诺模型的两寡头支付函数为：
+\begin{align*}
+	\max_{z_{b}} \pi(z_{b},z_{s}) & =(B-z_{b}-z_{s})z_{b}-w*q    \\
+	s.t.                          & \  0 \leq z_{b} \leq q
+\end{align*}
+\begin{align*}
+	\max_{z_{s}} \pi(z_{b},z_{s}) & =(S-z_{b}-z_{s})z_{s}+w*q      \\
+	s.t.                          & \  0 \leq z_{s} \leq K-q
+\end{align*}
+采用KKT条件求解其最优解，即：\\
+拉格朗日乘子式：
+\begin{align*}
+	L\left( z_{b},z_{s},\lambda  \right) & =(B-z_{b}-z_{s})z_{b}-w*q +\lambda_{1} \left( q-z_{b}-z_{s} \right)   \\
+	L\left( z_{b},z_{s},\lambda  \right) & =(S-z_{b}-z_{s})z_{s}+w*q +\lambda_{2} \left( K-q-z_{b}-z_{s} \right)
+\end{align*}
+根据KKT条件，可以得到：
+\begin{align*}
+	\left\{
+	\begin{matrix}
+		\frac{\partial L\left( z_{b},z_{s},\lambda \right)}{\partial z_{b}} = -2 z_{b} + B - z_{s} + \lambda_{1} = 0 \\
+		\frac{\partial L\left( z_{b},z_{s},\lambda \right)}{\partial z_{s}} = -2 z_{s} + S - z_{b} + \lambda_{2} = 0 \\
+		\lambda_{1} \left( q - z_{b} - z_{s} \right) = 0                                                             \\
+		\lambda_{2} \left( K - q - z_{b} - z_{s} \right) = 0                                                         \\
+		\lambda_{1} \geq 0, \quad q - z_{b} - z_{s} \leq 0                                                           \\
+		\lambda_{2} \geq 0, \quad K - q - z_{b} - z_{s} \leq 0                                                       \\
+	\end{matrix}
+	\right.
+\end{align*}
+若$\lambda_{1} = 0$，$\lambda_{2} = 0$，根据KKT条件，可以得到：
+\begin{align*}
+	(z_{b}^{*},z_{s}^{*}) = \left( \frac{2B - S}{3},\frac{2S - B}{3} \right)
+\end{align*}
+由$\lambda_{1}=0,\lambda_{2}=0$，可以得到：
+\begin{align*}
+	\left\{
+	\begin{matrix}
+		q \geq \frac{2B - S}{3} \\
+		K  \geq \frac{2S - B}{3} + q
+	\end{matrix}
+	\right.
+\end{align*}
+若$\lambda_{1} = 0$，$\lambda_{2} > 0$，根据KKT条件，可以得到：
+\begin{align*}
+	(z_{b}^{*},z_{s}^{*}) = \left( \frac{B-K+q}{2},K-q \right)
+\end{align*}
+由$g_{b}\leq 0 ,\lambda_{2}>0$，可以得到：
+\begin{align*}
+	\left\{
+	\begin{matrix}
+		K \geq B-K \\
+		K \leq \frac{2S-B}{3}+q
+	\end{matrix}
+	\right.
+\end{align*}
+若$\lambda_{1} > 0$，$\lambda_{2} = 0$，根据KKT条件，可以得到：
+\begin{align*}
+	(z_{b}^{*},z_{s}^{*}) = \left( q,\frac{S-q}{2} \right)
+\end{align*}
+由$g_{s}\leq 0 ,\lambda_{1}>0$，可以得到：
+\begin{align*}
+	\left\{
+	\begin{matrix}
+		q \leq \frac{2B-S}{3} \\
+		K \geq \frac{S+q}{2}
+	\end{matrix}
+	\right.
+\end{align*}
+若$\lambda_{1} > 0$，$\lambda_{2} > 0$，根据KKT条件，可以得到：
+\begin{align*}
+	(z_{b}^{*},z_{s}^{*}) = \left( q,K-q \right)
+\end{align*}
+由$g_{b}\leq 0 ,g_{s}\leq 0$，可以得到：
+\begin{align*}
+	\left\{
+	\begin{matrix}
+		K \leq B-q \\
+		K \leq \frac{S+q}{2}
+	\end{matrix}
+	\right.
+\end{align*}
+
+综上所述，可以得到最优解$z_{b}^{*},z_{s}^{*}$的计算方法为：
+\begin{align*}
+	\left\{
+	\begin{matrix}
+		(z_{b}^{*},z_{s}^{*}) = \left( \frac{2B - S}{3},\frac{2S - B}{3} \right) & if & q \geq \frac{2B - S}{3} & K  \geq \frac{2S - B}{3} + q \\
+		(z_{b}^{*},z_{s}^{*}) = \left( \frac{B-K+q}{2},K-q \right)               & if & q \geq K-B              & K \leq \frac{2S-B}{3}+q      \\
+		(z_{b}^{*},z_{s}^{*}) = \left( q,\frac{S-q}{2} \right)                   & if & q \leq \frac{2B-S}{3}   & K \geq \frac{S+q}{2}         \\
+		(z_{b}^{*},z_{s}^{*}) = \left( q,K-q \right)                             & if & K \leq B-q              & K \leq \frac{S+q}{2}
+	\end{matrix}
+	\right.
+\end{align*}
+
+
+\end{document}\
